@@ -20,9 +20,12 @@ class MessageQueue
   #     c.start
   #   end
   # end
-  def publish(data)
-	  puts "   Storing #{data}"
-	  json = data.to_json
+  def publish(payload)
+	  # if payload.has_key('image')?
+			# 	 image = payload['image']
+			# 	 payload[image] =  Base64.encode64(image)
+	  # end
+	  json = payload.to_json
 	  # msg = Base64.encode64(data)
 
 	  @ch.default_exchange.publish(json, routing_key: @queue.name, :persistent => true, :auto_delete => false,
