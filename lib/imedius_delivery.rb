@@ -2,7 +2,7 @@ $:.unshift(File.dirname(__FILE__)) unless
     $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
 
-puts "in efax_server::efax_delivery.rb"
+puts "in efax_server::imedius_delivery.rb"
 require 'pry'
 require 'bunny'
 require 'active_record'
@@ -34,7 +34,7 @@ require_relative '../models/delivery_job'
 
 
 
-class EfaxDelivery
+class ImediusDelivery
   attr_reader :service
 
   def initialize(mode, service_name, base_path)
@@ -48,7 +48,7 @@ class EfaxDelivery
     if service.nil?
       abort "DeliveryClass name of #{@service_name} does not exist"
     end
-    puts "Serviving Delivery Class #{@service.name}"
+    puts "Serviving ImediusDelivery Class #{@service.name}"
     #FileUtils.mkdir_p @working_path
 
     rabbit = ENV['IDSAMQP']

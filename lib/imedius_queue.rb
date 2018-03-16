@@ -2,7 +2,7 @@ require 'bunny'
 require 'base64'
 require 'pry'
 
-class EfaxQueue
+class ImediusQueue
 
 	def initialize(connection)
 		@ch   = connection.create_channel

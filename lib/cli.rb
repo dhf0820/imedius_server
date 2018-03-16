@@ -1,5 +1,5 @@
 require 'optparse'
-require_relative './efax_delivery.rb'
+require_relative './livery.rb'
 require_relative './queue_processor.rb'
 
 
@@ -9,8 +9,6 @@ require_relative './queue_processor.rb'
 
       options = {
           degub: :WARN,
-          path: nil,
-          environment: 'IDS_EFAX_SERVER',
           mode: 'test'
       }
       mandatory_options = %w( )
@@ -36,30 +34,30 @@ require_relative './queue_processor.rb'
                 "If not used will used the value defined in the System.yml config file",
                 " "
         ) {|arg| options[:debug] = arg}
-        opts.on("-e","--environment NAME", String,
-                "Specifies the Environment Variable that defines the base of the system",
-                "Default: IHIDS",
-                " ") {|arg| options[:environment] = arg}
+        # opts.on("-e","--environment NAME", String,
+        #         "Specifies the Environment Variable that defines the base of the system",
+        #         "Default: IHIDS",
+        #         " ") {|arg| options[:environment] = arg}
         opts.on("-h", "--help",
                 "Show this help message.",
                 " ") { puts opts; exit }
 
-        opts.on("-p", "--path PATH", String,
-                "Path to the base application directory",
-                "If given, overrides any environment option specified.",
-                " "
-        ) { |arg| options[:path] = arg }
+        # opts.on("-p", "--path PATH", String,
+        #         "Path to the base application directory",
+        #         "If given, overrides any environment option specified.",
+        #         " "
+        # ) { |arg| options[:path] = arg }
 
         opts.on("-m", "--mode TEST|LIVE", String,
                 "Runtime mode. Default is test.",
                 " "
         ) { |arg| options[:mode] = arg}
 
-	      opts.on("-s", "--service  Name", String,
-	              "Service(DeliveryClassName)",
-	              "Default: Efax",
-	              " "
-	      ) { |arg| options[:service] = arg}
+	      # opts.on("-s", "--service  Name", String,
+	      #         "Service(DeliveryClassName)",
+	      #         "Default: Efax",
+	      #         " "
+	      # ) { |arg| options[:service] = arg}
         begin
           opts.parse!(ARGV)
         rescue OptionParser::InvalidOption
@@ -73,30 +71,21 @@ require_relative './queue_processor.rb'
 
       end
 
-      env = options[:environment]
+      env $path
 
       debug = options[:debug]
       path = options[:path]
       @mode = options[:mode].downcase
-      options[:service] ||= 'EFax'
+      options[:service] ||= $service
 
 
-      if ENV[env].nil?
-        puts "\nThe #{env} environment variable is not set up. Please do so and restart.\n"
-        exit
-      end
-
-      if(path)
-        current_path = path
-      else
-        current_path = ENV[env]
-      end
+      base_path = $path
 
       puts "Starting FaxDelivery:  using #{current_path} in #{@mode} mode"
 
 
       #begin
-        fax = EfaxDelivery.new(@mode, options[:service], current_path)
+        fax = ImediusDelivery.new(@mode, $service, base_path)
 
 
       queue_processor = QueueProcessor.new(fax)
