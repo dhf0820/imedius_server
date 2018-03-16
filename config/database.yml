@@ -1,0 +1,82 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: 30
+
+
+
+development:
+  <<: *default
+  #url: postgres://pxpgvcfvjkzzpf:c3770a5918ac5a06c618daf4a22d921ccf29df8828e5b04fd04a743aec57565a@ec2-184-73-174-10.compute-1.amazonaws.com:5432/d2qto21cs2d19m
+#  url: <%= ENV['CHARTARCHIVE_DEV_URL'] %>
+
+#  database: <%= ENV['CHARTARCHIVE_DEV_DATABASE'] %>
+#  username: <%= ENV['CHARTARCHIVE_DEV_USERNAME'] %>
+#  password: <%= ENV['CHARTARCHIVE_DEV_PASSWORD'] %>
+#  host:     <%= ENV['CHARTARCHIVE_DEV_ADDRESS'] %>
+#  port:     <%= ENV['CHARTARCHIVE_DEV_PORT'] %>
+
+  adapter: postgresql
+  host: localhost
+  port: 5432
+  encoding: unicode
+  database: chartarchive_dev
+  pool: 30
+  username: chartarchive
+  password: pg#8162#red
+  timeout: 5000
+  #schema_search_path: "mms"
+
+
+production:
+  <<: *default
+  adapter:  postgresql
+  #database: <%= ENV['CHARTARCHIVE_DATABASE'] %>
+  #username: <%= ENV['CHARTARCHIVE_USERNAME'] %>
+  #password: <%= ENV['CHARTARCHIVE_PASSWORD'] %>
+  #host:     <%= ENV['CHARTARCHIVE_ADDRESS'] %>
+  #port:     <%= ENV['CHARTARCHIVE_PORT'] %>
+  #port:     5432
+
+
+  database: chartarchive
+  username: chartarchive
+  password: pg#8162#red
+  host:     localhost
+  port:     5432
+
+  #adapter: postgresql
+  #host: localhost
+  #port: 5432
+  #encoding: unicode
+  #database: chartarchive_dev
+  #pool: 30
+  #username: chartarchive
+  #password: pg#8162#red
+  #timeout: 5000
+
+
+
+#  adapter: postgresql
+#
+#  encoding: unicode
+#  database: ca_dev
+#  pool: 30
+#  username: ratnakar
+#  password: #pg#8162#red
+#  timeout: 5000
+
+test: 
+  adapter: postgresql
+  host: localhost
+  encoding: unicode
+  database: ca_dev
+  pool: 30
+  username: ratnakar
+
+  timeout: 5000
+
+                
+

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<OutboundStatusResponse>
+  <Transmission>
+    <TransmissionControl>
+      <TransmissionID>4</TransmissionID>
+    </TransmissionControl>
+    <Recipients>
+      <Recipient>
+        <DOCID>63217755</DOCID>
+        <Name>Theresa French</Name>
+        <Company>VertiSoft Corp</Company>
+        <Fax>702-924-0718</Fax>
+        <Status>
+          <Message>Your transmission has completed.</Message>
+          <Classification>"Success"</Classification>
+          <Outcome>"Success"</Outcome>
+        </Status>
+        <LastAttempt>
+          <LastDate>12/27/2015</LastDate>
+          <LastTime>23:27:37</LastTime>
+        </LastAttempt>
+        <NextAttempt>
+          <NextDate></NextDate>
+          <NextTime></NextTime>
+        </NextAttempt>
+        <Pages>
+          <Scheduled>3</Scheduled>
+          <Sent>3</Sent>
+        </Pages>
+        <BaudRate>14400</BaudRate>
+        <Duration>1.5</Duration>
+        <Retries>1</Retries>
+        <RemoteCSID>"17029240718"</RemoteCSID>
+      </Recipient>
+    </Recipients>
+  </Transmission>
+</OutboundStatusResponse>
