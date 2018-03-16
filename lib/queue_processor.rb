@@ -94,7 +94,7 @@ class QueueProcessor
 				doc_type = DocumentType.find doc.type_id
 				image = doc.archived_image.image
 
-				send_state= EFax::OutboundRequest.post(phy.name, "VertiSoft", device.command, doc_type.description, image, {transmissionid: job_id })
+				send_state=  Fax::OutBoundRequest.post(phy.name, "VertiSoft", device.command, doc_type.description, image, {transmissionid: job_id })
 				if send_state.status_code == 1
 					req.status  = "Sending"
 					req.status_time = Time.now
@@ -140,8 +140,8 @@ class QueueProcessor
 			fax_number = device.command
 	  end
 
-	  send_state= EFax::OutboundRequest.post('Verification', "VertiSoft", fax_number, 'FAX VERIFICATION   FAX VERIFICATION',
-	                                         image, {transmissionid: job_id })
+	  send_state = Fax::OutBoundRequest.post('Verification', "VertiSoft", fax_number, 'FAX VERIFICATION', image, {transmissionid: job_id })
+
 	  if send_state.status_code == 1
 		  job.remote_id = send_state.doc_id
 		  job.start_time = Time.now
@@ -159,7 +159,7 @@ class QueueProcessor
 		jobs = DeliveryJob.where(:class_id => @service.id).where.not(:remote_id=> nil)
 		return if jobs.count == 0
 		jobs.each do |job|
-			status = EFax::OutboundStatus.post(job.remote_id)
+			status = Fax::OutboundStatus.post(job.remote_id)
 			puts "Sataus for #{job.remote_id}: #{status.inspect}"
 
 			if job.job_type == 'direct'
